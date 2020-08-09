@@ -25,16 +25,36 @@ class ViewController: UIViewController {
 //    }()
 //
     
-    var stackContainerView: StackContainerView = {
+    var stackContainerView: SegmentContainerView = {
         let previewView = PreviewView(frame: .zero)
         let detailView = DetailView(frame: .zero)
-        let stackView1 = StackView(previewView: previewView, detailView: detailView)
+//        let stackView1 = Segment(collapsedView: previewView, expandedView: detailView)
         
         let previewView2 = PreviewView1(frame: .zero)
         let detailView2 = DetailView1(frame: .zero)
-        let stackView2 = StackView(previewView: previewView2, detailView: detailView2)
+//        let stackView2 = Segment(collapsedView: previewView2, expandedView: detailView2)
         
-        return StackContainerView(stackViews: [stackView1, stackView2])
+        let collapsedNameView = CollapsedNameView(frame: .zero)
+        let expandedNameView = ExpandedNameView(frame: .zero)
+        
+        let collapsedAgeView = CollapsedAgeView(frame: .zero)
+        let expandedAgeView = ExpandedAgeView(frame: .zero)
+        
+        let previewView3 = PreviewView(frame: .zero)
+        let detailView3 = DetailView(frame: .zero)
+        
+        return SegmentContainerView(segmentBundles: [
+            SegmentBundle(expandedView: expandedNameView, collapsedView: collapsedNameView, ctaText: "Add Name", ctaActionCallback: {
+                 
+                 collapsedNameView.data = "Name: \(expandedNameView.firstNameTextField.text ?? "")  ,  \(expandedNameView.lastNameTextField.text ?? "")"
+             }),
+//            SegmentBundle(expandedView: detailView, collapsedView: previewView, ctaText: "Name", ctaActionCallback: nil),
+//            SegmentBundle(expandedView: detailView2, collapsedView: previewView2, ctaText: "Test", ctaActionCallback: nil),
+//            SegmentBundle(expandedView: detailView3, collapsedView: previewView3, ctaText: "Name", ctaActionCallback: nil)
+            SegmentBundle(expandedView: expandedAgeView, collapsedView: collapsedAgeView, ctaText: "Add Age", ctaActionCallback: {
+                collapsedAgeView.data = "Age: \(expandedAgeView.dayTextField.text ?? "") \(expandedAgeView.monthTextField.text ?? "" )/\(expandedAgeView.yearTextField.text ?? "")"
+            })
+        ])
     }()
 
     override func viewDidLoad() {
@@ -84,11 +104,11 @@ class ViewController: UIViewController {
 //        view2.setContentHuggingPriority(., for: <#T##NSLayoutConstraint.Axis#>)
         
         self.view.addSubview(uiStackView)
-        uiStackView.addArrangedSubview(view2)
+//        uiStackView.addArrangedSubview(view2)
         uiStackView.addArrangedSubview(stackContainerView)
 //        uiStackView.addArrangedSubview(button)
 //        uiStackView.addArrangedSubview(button2)
-        uiStackView.addArrangedSubview(view)
+//        uiStackView.addArrangedSubview(view)
         
         NSLayoutConstraint.activate([
             uiStackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16.0),
@@ -129,7 +149,7 @@ class StackContainer: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupAStack(stackView: StackView) {
+    func setupAStack(stackView: Segment) {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(stackView)
         

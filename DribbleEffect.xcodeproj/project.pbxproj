@@ -15,9 +15,11 @@
 		0C2E6D4824DEED38004F3030 /* DribbleEffectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2E6D4724DEED38004F3030 /* DribbleEffectTests.swift */; };
 		0C2E6D5324DF076B004F3030 /* StackViewInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2E6D5224DF076B004F3030 /* StackViewInstance.swift */; };
 		0C2E6D5524DFF19F004F3030 /* StackViewInstance1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2E6D5424DFF19F004F3030 /* StackViewInstance1.swift */; };
-		0C2E6D5724DFF7CA004F3030 /* StackContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2E6D5624DFF7CA004F3030 /* StackContainerView.swift */; };
-		0C2E6D5924DFFFE7004F3030 /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2E6D5824DFFFE7004F3030 /* StackView.swift */; };
+		0C2E6D5924DFFFE7004F3030 /* Segment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2E6D5824DFFFE7004F3030 /* Segment.swift */; };
 		0C2E6D5D24E00746004F3030 /* NameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2E6D5C24E00746004F3030 /* NameView.swift */; };
+		0C2E6D6124E02DD8004F3030 /* SegmentBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2E6D6024E02DD8004F3030 /* SegmentBundle.swift */; };
+		0C2E6D6324E03264004F3030 /* SegmentContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2E6D6224E03264004F3030 /* SegmentContainerView.swift */; };
+		0C2E6D6524E0447C004F3030 /* AgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2E6D6424E0447C004F3030 /* AgeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,9 +45,11 @@
 		0C2E6D4924DEED38004F3030 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C2E6D5224DF076B004F3030 /* StackViewInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewInstance.swift; sourceTree = "<group>"; };
 		0C2E6D5424DFF19F004F3030 /* StackViewInstance1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewInstance1.swift; sourceTree = "<group>"; };
-		0C2E6D5624DFF7CA004F3030 /* StackContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackContainerView.swift; sourceTree = "<group>"; };
-		0C2E6D5824DFFFE7004F3030 /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
+		0C2E6D5824DFFFE7004F3030 /* Segment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Segment.swift; sourceTree = "<group>"; };
 		0C2E6D5C24E00746004F3030 /* NameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameView.swift; sourceTree = "<group>"; };
+		0C2E6D6024E02DD8004F3030 /* SegmentBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentBundle.swift; sourceTree = "<group>"; };
+		0C2E6D6224E03264004F3030 /* SegmentContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentContainerView.swift; sourceTree = "<group>"; };
+		0C2E6D6424E0447C004F3030 /* AgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,9 +99,11 @@
 				0C2E6D3E24DEED38004F3030 /* Info.plist */,
 				0C2E6D5224DF076B004F3030 /* StackViewInstance.swift */,
 				0C2E6D5424DFF19F004F3030 /* StackViewInstance1.swift */,
-				0C2E6D5624DFF7CA004F3030 /* StackContainerView.swift */,
-				0C2E6D5824DFFFE7004F3030 /* StackView.swift */,
+				0C2E6D5824DFFFE7004F3030 /* Segment.swift */,
 				0C2E6D5C24E00746004F3030 /* NameView.swift */,
+				0C2E6D6024E02DD8004F3030 /* SegmentBundle.swift */,
+				0C2E6D6224E03264004F3030 /* SegmentContainerView.swift */,
+				0C2E6D6424E0447C004F3030 /* AgeView.swift */,
 			);
 			path = DribbleEffect;
 			sourceTree = "<group>";
@@ -215,10 +221,12 @@
 				0C2E6D3524DEED35004F3030 /* ViewController.swift in Sources */,
 				0C2E6D5324DF076B004F3030 /* StackViewInstance.swift in Sources */,
 				0C2E6D5D24E00746004F3030 /* NameView.swift in Sources */,
+				0C2E6D6124E02DD8004F3030 /* SegmentBundle.swift in Sources */,
 				0C2E6D5524DFF19F004F3030 /* StackViewInstance1.swift in Sources */,
-				0C2E6D5724DFF7CA004F3030 /* StackContainerView.swift in Sources */,
+				0C2E6D6524E0447C004F3030 /* AgeView.swift in Sources */,
 				0C2E6D3124DEED35004F3030 /* AppDelegate.swift in Sources */,
-				0C2E6D5924DFFFE7004F3030 /* StackView.swift in Sources */,
+				0C2E6D6324E03264004F3030 /* SegmentContainerView.swift in Sources */,
+				0C2E6D5924DFFFE7004F3030 /* Segment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
