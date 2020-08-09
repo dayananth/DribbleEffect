@@ -10,12 +10,12 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var stackView: StackView =  {
-        let previewView = PreviewView1(frame: .zero)
-        let detailView = DetailView1(frame: .zero)
-        let stackView = StackView(previewView: previewView, detailView: detailView)
-        return stackView
-    }()
+//    var stackView: StackView =  {
+//        let previewView = PreviewView1(frame: .zero)
+//        let detailView = DetailView1(frame: .zero)
+//        let stackView = StackView(previewView: previewView, detailView: detailView)
+//        return stackView
+//    }()
     
 //    var stackView: StackView =  {
 //        let previewView = PreviewView(frame: .zero)
@@ -25,6 +25,17 @@ class ViewController: UIViewController {
 //    }()
 //
     
+    var stackContainerView: StackContainerView = {
+        let previewView = PreviewView(frame: .zero)
+        let detailView = DetailView(frame: .zero)
+        let stackView1 = StackView(previewView: previewView, detailView: detailView)
+        
+        let previewView2 = PreviewView1(frame: .zero)
+        let detailView2 = DetailView1(frame: .zero)
+        let stackView2 = StackView(previewView: previewView2, detailView: detailView2)
+        
+        return StackContainerView(stackViews: [stackView1, stackView2])
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,8 +44,8 @@ class ViewController: UIViewController {
 //        var topConstant
         
         self.view.backgroundColor = .white
-        self.view.addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(stackContainerView)
+        stackContainerView.translatesAutoresizingMaskIntoConstraints = false
         let button = UIButton(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .blue
@@ -51,9 +62,9 @@ class ViewController: UIViewController {
         button2.setTitle("Collapse", for: .normal)
         button2.addTarget(self, action: #selector(buttonTapped2), for: .touchUpInside)
         button2.setContentCompressionResistancePriority(.required, for: .vertical)
-        stackView.setContentCompressionResistancePriority(.required, for: .vertical)
+        stackContainerView.setContentCompressionResistancePriority(.required, for: .vertical)
         
-        stackView.setContentCompressionResistancePriority(.required, for: .vertical)
+        stackContainerView.setContentHuggingPriority(.required, for: .vertical)
         
         let view = UIView()
         view.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
@@ -74,155 +85,33 @@ class ViewController: UIViewController {
         
         self.view.addSubview(uiStackView)
         uiStackView.addArrangedSubview(view2)
-        uiStackView.addArrangedSubview(stackView)
-        uiStackView.addArrangedSubview(button)
-        uiStackView.addArrangedSubview(button2)
+        uiStackView.addArrangedSubview(stackContainerView)
+//        uiStackView.addArrangedSubview(button)
+//        uiStackView.addArrangedSubview(button2)
         uiStackView.addArrangedSubview(view)
         
         NSLayoutConstraint.activate([
-            uiStackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            uiStackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            uiStackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16.0),
+            uiStackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16.0),
             uiStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             uiStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            uiStackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-            uiStackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+//            uiStackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+//            uiStackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
         ])
         
     }
 
     
     @objc func buttonTapped() {
-        stackView.expand()
+//        stackView.expand()
     }
     
     @objc func buttonTapped2() {
-        stackView.collapse()
+//        stackView.collapse()
     }
 
 }
 
-class StackView: UIView {
-    
-    let previewView: UIView
-    let detailView: UIView
-    var heightConstraint: NSLayoutConstraint?
-    var expandedHeight:CGFloat = 0
-    var collapsedHeight:CGFloat = 0
-    var detailViewHeightConstriant: NSLayoutConstraint?
-    
-    init(previewView: UIView, detailView: UIView) {
-        self.previewView = previewView
-        self.detailView = detailView
-//        self.detailView.alpha = 0
-//        self.previewView.alpha = 1
-        super.init(frame: .zero)
-        self.addSubview(previewView)
-        self.addSubview(detailView)
-        previewView.translatesAutoresizingMaskIntoConstraints = false
-        detailView.translatesAutoresizingMaskIntoConstraints = false
-        detailView.alpha = 0
-        
-        detailViewHeightConstriant = detailView.heightAnchor.constraint(equalToConstant: 0)
-        
-        NSLayoutConstraint.activate([
-            previewView.topAnchor.constraint(equalTo: self.topAnchor),
-            previewView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            previewView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            previewView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            detailView.topAnchor.constraint(equalTo: self.topAnchor),
-            detailView.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor),
-            detailView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            detailView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-//            detailView.heightAnchor.constraint(equalToConstant: 0)
-            detailViewHeightConstriant!
-        ])
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-//        self.heightConstraint = self.heightAnchor.constraint(equalToConstant: previewView.frame.height)
-//        heightConstraint.isActive = true
-    }
-
-    
-    func expand() {
-//        previewView.alpha = 0
-//        detailView.alpha = 1
-        if collapsedHeight == 0 {
-            collapsedHeight = self.frame.height
-        }
-        if expandedHeight > 0 {
-//            heightConstraint!.constant = expandedHeight
-        } else {
-//            addDetailView()
-            adjustDetailViewHeight()
-//            expandedHeight = self.frame.height
-        }
-//        previewView.isHidden = true
-//        detailView.isHidden = false
-        
-//        UIView.animate(withDuration: 0.2) {
-////            self.detailView.isHidden = !self.detailView.isHidden
-////            self.previewView.isHidden = !self.previewView.isHidden
-//            self.detailView.alpha = self.detailView.alpha == 0 ? 1 : 0
-//            self.previewView.alpha = self.previewView.alpha == 0 ? 1 : 0
-//        }
-    }
-    
-    private func addDetailView() {
-        NSLayoutConstraint.activate([
-            detailView.topAnchor.constraint(equalTo: self.topAnchor),
-            detailView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            detailView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            detailView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-        ])
-        layoutIfNeeded()
-        
-    }
-    
-    private func adjustDetailViewHeight() {
-        
-//        let view = UIView(frame: .zero)
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        let detailViewCopy = detailView.copy() as? UIView
-      
-        UIView.animate(withDuration: 0.2) {
-            self.detailView.removeConstraint(self.detailViewHeightConstriant!)
-            self.detailView.layoutIfNeeded()
-            self.detailView.alpha = self.detailView.alpha == 0 ? 1 : 0
-            self.previewView.alpha = self.previewView.alpha == 0 ? 1 : 0
-        }
-        
-        
-    }
-    
-    func collapse() {
-//        previewView.alpha = 1
-//        detailView.alpha = 0
-//        if self.heightConstraint != nil {
-//            self.removeConstraint(self.heightConstraint!)
-//        }
-//        if self.heightConstraint == nil {
-//            self.heightConstraint = self.heightAnchor.constraint(equalToConstant: collapsedHeight)
-//            self.heightConstraint!.isActive = true
-//            self.addConstraint(self.heightConstraint!)
-//        } else {
-//            self.heightConstraint?.constant = collapsedHeight
-//        }
-        UIView.animate(withDuration: 0.2) {
-//            self.detailView.isHidden = !self.detailView.isHidden
-//            self.previewView.isHidden = !self.previewView.isHidden
-            self.detailView.addConstraint(self.detailViewHeightConstriant!)
-            self.layoutIfNeeded()
-            self.detailView.alpha = self.detailView.alpha == 0 ? 1 : 0
-            self.previewView.alpha = self.previewView.alpha == 0 ? 1 : 0
-        }
-    }
-}
 
 typealias ViewsTuple = (previewView: UIView, detailView: UIView)
 
