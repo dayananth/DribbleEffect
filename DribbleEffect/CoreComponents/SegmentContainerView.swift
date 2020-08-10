@@ -8,6 +8,17 @@
 
 import UIKit
 
+// Restricting it to 4 since the container view is not scrollable to have infinite segments in it.
+public let MAX_ALLOWED_SEGMENTS = 4
+
+// Atleast one segment to be added
+public let MIN_ALLOWED_SEGMENTS = 1
+
+enum SegmentContainerViewException: Error {
+    case exceededMaxNoOfSegments
+    case lessThanMinAllowedSegments
+}
+
 class SegmentContainerView: UIView {
     
     private let stackView: UIStackView =  {
@@ -24,7 +35,15 @@ class SegmentContainerView: UIView {
     
     private let segmentBundles : [SegmentBundle]
     
-    init(segmentBundles: [SegmentBundle], ctaButton: UIButton? = nil) {
+    init(segmentBundles: [SegmentBundle], ctaButton: UIButton? = nil) throws {
+        if segmentBundles.count > MAX_ALLOWED_SEGMENTS {
+            throw SegmentContainerViewException.exceededMaxNoOfSegments
+        }
+        
+        if segmentBundles.count < MIN_ALLOWED_SEGMENTS {
+            throw SegmentContainerViewException.lessThanMinAllowedSegments
+        }
+        
         self.segmentBundles = segmentBundles
         self.ctaButton = ctaButton
         super.init(frame: .zero)

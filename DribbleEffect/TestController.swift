@@ -43,7 +43,7 @@ class TestController: UIViewController {
         thinArrowButton.setTitle("↓", for: .normal)
         thinArrowButton.setTitleColor(.orange, for: .normal)
         
-        return SegmentContainerView(segmentBundles: [
+        return try! SegmentContainerView(segmentBundles: [
             // First Section with strong arrow
             SegmentBundle(expandedView: expandedNameView, collapsedView: collapsedNameView, ctaText: "Add Name", ctaActionCallback: {
                 // Passing data back once the dettails are added
