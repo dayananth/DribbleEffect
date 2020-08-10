@@ -10,6 +10,76 @@ import UIKit
 
 class TestController: UIViewController {
     var stackContainerView: SegmentContainerView?
+    
+    
+    // This the test runner for the dribble framework
+    func initializeTestViews() -> SegmentContainerView {
+    
+        // Stack 1 -> Test View
+        let collapsedNameView = CollapsedNameView(frame: .zero)
+        let expandedNameView = ExpandedNameView(frame: .zero)
+        
+        // Stack 2 -> Test View
+        let collapsedAgeView = CollapsedAgeView(frame: .zero)
+        let expandedAgeView = ExpandedAgeView(frame: .zero)
+        
+        // Stack 3 -> Test View
+        let collapsedAddressView = CollapsedAddressView(frame: .zero)
+        let expandedAddressView = ExpandedAddressView(frame: .zero)
+        
+        // CTA Button - Customizable CTA. Its optional if we dont need it
+        let ctaButton = UIButton(frame: .zero)
+        ctaButton.translatesAutoresizingMaskIntoConstraints = false
+        ctaButton.backgroundColor = .green
+        ctaButton.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+        ctaButton.setTitleColor(.black, for: .normal)
+        
+        // Customizable Toggle buttons, if we dont pass our own toggle button, the default + or - toggle would be applied
+        let arrowToggleButton = UIButton(frame: .zero)
+        arrowToggleButton.setTitle("▼", for: .normal)
+        arrowToggleButton.setTitleColor(.orange, for: .normal)
+        
+        let thinArrowButton = UIButton(frame: .zero)
+        thinArrowButton.setTitle("↓", for: .normal)
+        thinArrowButton.setTitleColor(.orange, for: .normal)
+        
+        return SegmentContainerView(segmentBundles: [
+            // First Section with strong arrow
+            SegmentBundle(expandedView: expandedNameView, collapsedView: collapsedNameView, ctaText: "Add Name", ctaActionCallback: {
+                // Passing data back once the dettails are added
+                 collapsedNameView.data = "Name: \(expandedNameView.firstNameTextField.text ?? "")  ,  \(expandedNameView.lastNameTextField.text ?? "")"
+            }, toggleButton: arrowToggleButton, toggleButtonCallBack: { (state) in
+                if state == SegmentState.collapsed {
+                       arrowToggleButton.setTitle("▼", for: .normal)
+                } else {
+                    arrowToggleButton.setTitle("▲", for: .normal)
+                }
+            }),
+            
+            // Second Section with thin arrow
+            SegmentBundle(expandedView: expandedAgeView, collapsedView: collapsedAgeView, ctaText: "Add Age", ctaActionCallback: {
+                // Passing data back once the dettails are added
+                collapsedAgeView.data = "Age: \(expandedAgeView.dayTextField.text ?? "") \(expandedAgeView.monthTextField.text ?? "" )/\(expandedAgeView.yearTextField.text ?? "")"
+            }, toggleButton: thinArrowButton,toggleButtonCallBack: { (state) in
+                
+                if state == SegmentState.collapsed {
+                    thinArrowButton.setTitle("↓", for: .normal)
+                } else {
+                    thinArrowButton.setTitle("↑", for: .normal)
+                }
+            }),
+            
+            // Third with default + and -
+            SegmentBundle(expandedView: expandedAddressView, collapsedView: collapsedAddressView, ctaText: "Add Address", ctaActionCallback: {
+                // Passing data back once the dettails are added
+                collapsedAddressView.data = "\(expandedAddressView.addressLine1Text.text ?? ""), \(expandedAddressView.cityText.text ?? ""), \(expandedAddressView.stateText.text ?? "")"
+            }, toggleButton: nil, toggleButtonCallBack: nil)
+        ],ctaButton: ctaButton)
+        
+    }
+    
+
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +122,12 @@ class TestController: UIViewController {
         view2.setContentHuggingPriority(.defaultLow, for: .vertical)
         view2.heightAnchor.constraint(equalToConstant: 150).isActive = true
         
+        let headerLabel = UILabel()
+        headerLabel.text = "=========Example Dribble Effect========"
+        headerLabel.font = UIFont.systemFont(ofSize: 18.0)
+        
         self.view.addSubview(uiStackView)
+        uiStackView.addArrangedSubview(headerLabel)
         uiStackView.addArrangedSubview(view2)
         uiStackView.addArrangedSubview(stackContainerView)
         
@@ -64,71 +139,5 @@ class TestController: UIViewController {
         ])
         
     }
-
-    func initializeTestViews() -> SegmentContainerView {
-    
-        // Stack 1 -> Test View
-        let collapsedNameView = CollapsedNameView(frame: .zero)
-        let expandedNameView = ExpandedNameView(frame: .zero)
-        
-        // Stack 2 -> Test View
-        let collapsedAgeView = CollapsedAgeView(frame: .zero)
-        let expandedAgeView = ExpandedAgeView(frame: .zero)
-        
-        // Stack 3 -> Test View
-        let collapsedAddressView = CollapsedAddressView(frame: .zero)
-        let expandedAddressView = ExpandedAddressView(frame: .zero)
-        
-        // CTA Button - Customizable CTA. Its optional if we dont need it
-        let ctaButton = UIButton(frame: .zero)
-        ctaButton.translatesAutoresizingMaskIntoConstraints = false
-        ctaButton.backgroundColor = .green
-        ctaButton.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
-        
-        // Customizable Toggle buttons, if we dont pass our own toggle button, the default + or - toggle would be applied
-        let arrowToggleButton = UIButton(frame: .zero)
-        arrowToggleButton.setTitle("▼", for: .normal)
-        arrowToggleButton.setTitleColor(.orange, for: .normal)
-        
-        let thinArrowButton = UIButton(frame: .zero)
-        thinArrowButton.setTitle("↓", for: .normal)
-        thinArrowButton.setTitleColor(.orange, for: .normal)
-        
-        return SegmentContainerView(segmentBundles: [
-            // First Section with strong arrow
-            SegmentBundle(expandedView: expandedNameView, collapsedView: collapsedNameView, ctaText: "Add Name", ctaActionCallback: {
-                // Passing data back once the dettails are added
-                 collapsedNameView.data = "Name: \(expandedNameView.firstNameTextField.text ?? "")  ,  \(expandedNameView.lastNameTextField.text ?? "")"
-            }, toggleButton: arrowToggleButton, toggleButtonCallBack: { (state) in
-                if state == SegmentState.collapsed {
-                       arrowToggleButton.setTitle("▼", for: .normal)
-                } else {
-                    arrowToggleButton.setTitle("▲", for: .normal)
-                }
-            }),
-            
-            // Second Section with thin arrow
-            SegmentBundle(expandedView: expandedAgeView, collapsedView: collapsedAgeView, ctaText: "Add Age", ctaActionCallback: {
-                // Passing data back once the dettails are added
-                collapsedAgeView.data = "Age: \(expandedAgeView.dayTextField.text ?? "") \(expandedAgeView.monthTextField.text ?? "" )/\(expandedAgeView.yearTextField.text ?? "")"
-            }, toggleButton: thinArrowButton,toggleButtonCallBack: { (state) in
-                
-                if state == SegmentState.collapsed {
-                    thinArrowButton.setTitle("↓", for: .normal)
-                } else {
-                    thinArrowButton.setTitle("↑", for: .normal)
-                }
-            }),
-            
-            // Third with default + and -
-            SegmentBundle(expandedView: expandedAddressView, collapsedView: collapsedAddressView, ctaText: "Add Address", ctaActionCallback: {
-                collapsedAddressView.data = "\(expandedAddressView.addressLine1Text.text ?? ""), \(expandedAddressView.cityText.text ?? ""), \(expandedAddressView.stateText.text ?? "")"
-            }, toggleButton: nil, toggleButtonCallBack: nil)
-        ],ctaButton: ctaButton)
-        
-    }
-    
-
-
 }
 
