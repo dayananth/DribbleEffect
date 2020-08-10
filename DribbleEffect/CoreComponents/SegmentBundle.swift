@@ -14,18 +14,27 @@ class SegmentBundle {
     
     let collapsedView: UIView
     
-    let ctaText: String
+    let ctaText: String?
     
     let ctaActionCallback: (() -> Void)?
     
     let segment: Segment
     
-    init (expandedView: UIView, collapsedView: UIView, ctaText: String, ctaActionCallback: (() -> Void)?) {
+    
+    init (expandedView: UIView,
+          collapsedView: UIView,
+          ctaText: String? = nil,
+          ctaActionCallback: (() -> Void)?,
+          toggleButton: UIButton?,
+          toggleButtonCallBack: ((SegmentState) -> Void)?) {
         self.expandedView = expandedView
         self.collapsedView = collapsedView
         self.ctaText = ctaText
         self.ctaActionCallback = ctaActionCallback
-        self.segment = Segment(collapsedView: collapsedView, expandedView: expandedView)
+        self.segment = Segment(collapsedView: collapsedView,
+                               expandedView: expandedView,
+                               toggleButton: toggleButton,
+                               toggleButtonCallBack: toggleButtonCallBack)
     }
     
 }

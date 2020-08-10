@@ -10,7 +10,7 @@ import UIKit
 
 class SegmentContainerView: UIView {
     
-    let stackView: UIStackView =  {
+    private let stackView: UIStackView =  {
         let uiStackView = UIStackView(frame: .zero)
         uiStackView.translatesAutoresizingMaskIntoConstraints = false
         uiStackView.distribution = .fill
@@ -19,20 +19,24 @@ class SegmentContainerView: UIView {
         return uiStackView
     }()
     
-//    let stackViewsWithCTA: [(stackView: StackView,CTA: String)]
-    var currentSelectedIndex = -1
-    let button = UIButton(frame: .zero)
+    private var currentSelectedIndex = -1
+    private var ctaButton: UIButton?
     
-    let segmentBundles : [SegmentBundle]
+    private let segmentBundles : [SegmentBundle]
     
-    init(segmentBundles: [SegmentBundle]) {
+    init(segmentBundles: [SegmentBundle], ctaButton: UIButton? = nil) {
         self.segmentBundles = segmentBundles
+        self.ctaButton = ctaButton
         super.init(frame: .zero)
         setupView()
     }
     
     
-    func setupView() {
+    private func setupView() {
+        
+        if segmentBundles.count == 0 {
+            return
+        }
         
         for segmentBundle in segmentBundles {
             let segment = segmentBundle.segment
@@ -45,35 +49,35 @@ class SegmentContainerView: UIView {
                         v.segment.collapse()
                     } else {
                         weakSelf.currentSelectedIndex = index
-                        weakSelf.button.setTitle(v.ctaText, for: .normal)
+                        if let ctaText = v.ctaText {
+                            weakSelf.ctaButton?.setTitle(ctaText, for: .normal)
+                        }
                     }
                     index += 1
                 }
             }
         }
         
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .green
-        button.setTitleColor(.black, for: .normal)
-        button.setTitle(segmentBundles[0].ctaText, for: .normal)
-        button.addTarget(self, action: #selector(ctaButtonTapped), for: .touchUpInside)
-        button.setContentCompressionResistancePriority(.required, for: .vertical)
+        ctaButton?.translatesAutoresizingMaskIntoConstraints = false
+        ctaButton?.setTitle(segmentBundles[0].ctaText, for: .normal)
+        ctaButton?.addTarget(self, action: #selector(ctaButtonTapped), for: .touchUpInside)
+        ctaButton?.setContentCompressionResistancePriority(.required, for: .vertical)
         
         for segmentBundle in segmentBundles {
             stackView.addArrangedSubview(segmentBundle.segment)
         }
-//        stackView.addArrangedSubview(segmentBundles[0].segment)
-//        stackView.addArrangedSubview(segmentBundles[1].segment)
         stackView.addArrangedSubview(UIView())
-        stackView.addArrangedSubview(button)
+        if let ctaButton = ctaButton {
+            stackView.addArrangedSubview(ctaButton)
+        }
 
         addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
-            stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
+            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            stackView.topAnchor.constraint(equalTo: self.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
            ])
     }
     
@@ -84,7 +88,7 @@ class SegmentContainerView: UIView {
     @objc func ctaButtonTapped() {
         segmentBundles[currentSelectedIndex].ctaActionCallback?()
         if currentSelectedIndex + 1 < segmentBundles.count {
-            button.setTitle(segmentBundles[currentSelectedIndex+1].ctaText, for: .normal)
+            ctaButton?.setTitle(segmentBundles[currentSelectedIndex+1].ctaText, for: .normal)
             currentSelectedIndex += 1
             for i in 0..<segmentBundles.count {
                 if i != currentSelectedIndex {

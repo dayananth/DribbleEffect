@@ -94,6 +94,11 @@ class ExpandedNameView: UIView {
         
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         
+        let headerLabel = UILabel(frame: .zero)
+        headerLabel.backgroundColor = .cyan
+        headerLabel.text = "First Name & Last Name"
+        
+        containerStackView.addArrangedSubview(headerLabel)
         containerStackView.addArrangedSubview(firstRowStackView)
         containerStackView.addArrangedSubview(secondRowStackView)
         addSubview(containerStackView)
@@ -138,7 +143,7 @@ class CollapsedNameView: UIView {
     
      var label: UILabel  = {
         let label =  UILabel()
-        label.backgroundColor = .white
+        label.backgroundColor = .orange
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Add Name"

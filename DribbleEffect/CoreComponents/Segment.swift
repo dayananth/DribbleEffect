@@ -8,12 +8,16 @@
 
 import UIKit
 
-class Segment: UIView {
+enum SegmentState {
+    case expanded
+    case collapsed
+}
+
+final class Segment: UIView {
     
-    let collapsedView: UIView
-    let expandedView: UIView
-    var heightConstraint: NSLayoutConstraint?
-    var expandedViewHeightConstriant: NSLayoutConstraint?
+    private let collapsedView: UIView
+    private let expandedView: UIView
+    private var expandedViewHeightConstriant: NSLayoutConstraint?
     var isExpanded: Bool = false
     var didToggle: ((UIView) -> Void)?
     var toggleButton: UIButton = {
@@ -26,10 +30,33 @@ class Segment: UIView {
         
     }()
     
-    init(collapsedView: UIView, expandedView: UIView) {
+    private var toggleButtonCallback: ((SegmentState) -> Void)?
+    
+    typealias  PaddingTuple = (top: CGFloat, bottom: CGFloat, right: CGFloat, left: CGFloat)
+    
+    init(collapsedView: UIView,
+         expandedView: UIView,
+         paddingTuple: PaddingTuple = (8,8,16,16),
+         toggleButton: UIButton? = nil,
+         toggleButtonCallBack: ((SegmentState) -> Void)? = nil) {
         self.collapsedView = collapsedView
         self.expandedView = expandedView
+        if let toggleButton = toggleButton {
+            self.toggleButton = toggleButton
+            self.toggleButton.translatesAutoresizingMaskIntoConstraints = false
+            self.toggleButtonCallback = toggleButtonCallBack
+        }
         super.init(frame: .zero)
+        
+        setup(paddingTuple: paddingTuple)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    private func setup(paddingTuple: PaddingTuple) {
         self.addSubview(collapsedView)
         self.addSubview(expandedView)
         collapsedView.translatesAutoresizingMaskIntoConstraints = false
@@ -42,21 +69,21 @@ class Segment: UIView {
         self.addGestureRecognizer(tapGesture)
         
         NSLayoutConstraint.activate([
-            collapsedView.topAnchor.constraint(equalTo: self.topAnchor),
-            collapsedView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            collapsedView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            collapsedView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            expandedView.topAnchor.constraint(equalTo: self.topAnchor),
-            expandedView.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor),
-            expandedView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            expandedView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            collapsedView.topAnchor.constraint(equalTo: self.topAnchor, constant:  paddingTuple.top),
+            collapsedView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant:  -paddingTuple.bottom),
+            collapsedView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant:  paddingTuple.left),
+            collapsedView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant:  -paddingTuple.right * 3),
+            expandedView.topAnchor.constraint(equalTo: self.topAnchor, constant:  paddingTuple.top),
+            expandedView.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor, constant:  -paddingTuple.bottom),
+            expandedView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant:  paddingTuple.left),
+            expandedView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant:  -paddingTuple.right * 3),
             expandedViewHeightConstriant!
         ])
         
         addSubview(toggleButton)
         NSLayoutConstraint.activate([
-            toggleButton.topAnchor.constraint(equalTo: self.topAnchor),
-            toggleButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
+            toggleButton.topAnchor.constraint(equalTo: self.topAnchor, constant: paddingTuple.top),
+            toggleButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -paddingTuple.right),
             toggleButton.heightAnchor.constraint(equalToConstant: 25),
             toggleButton.widthAnchor.constraint(equalToConstant: 25)
         ])
@@ -64,17 +91,20 @@ class Segment: UIView {
         
         self.layer.borderColor = UIColor.lightGray.cgColor
         self.layer.borderWidth = 0.5
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        self.layer.cornerRadius = 6
+        self.layer.masksToBounds = true
     }
     
     func expand() {
         if isExpanded { return }
         adjustDetailViewHeight()
         isExpanded = !isExpanded
-        self.toggleButton.setTitle("-", for: .normal)
+        
+        if self.toggleButtonCallback != nil {
+            self.toggleButtonCallback?(.expanded)
+        } else {
+            self.toggleButton.setTitle("-", for: .normal)
+        }
     }
     
     @objc func tapped() {
@@ -110,7 +140,11 @@ class Segment: UIView {
     func collapse() {
         if !isExpanded {return}
         isExpanded = !isExpanded
-        self.toggleButton.setTitle("+", for: .normal)
+        if toggleButtonCallback != nil {
+            toggleButtonCallback?(.collapsed)
+        } else {
+            self.toggleButton.setTitle("+", for: .normal)
+        }
         UIView.animate(withDuration: 0.2) {
             self.expandedView.addConstraint(self.expandedViewHeightConstriant!)
             self.layoutIfNeeded()

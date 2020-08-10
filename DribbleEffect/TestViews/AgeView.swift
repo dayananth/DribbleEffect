@@ -119,6 +119,11 @@ class ExpandedAgeView: UIView {
             
             containerStackView.translatesAutoresizingMaskIntoConstraints = false
             
+            let headerLabel = UILabel(frame: .zero)
+            headerLabel.backgroundColor = .cyan
+            headerLabel.text = "Age Section"
+            
+            containerStackView.addArrangedSubview(headerLabel)
             containerStackView.addArrangedSubview(firstRowStackView)
             containerStackView.addArrangedSubview(secondRowStackView)
             containerStackView.addArrangedSubview(thirdRowStackView)
@@ -165,7 +170,7 @@ class CollapsedAgeView: UIView {
     
      var label: UILabel  = {
         let label =  UILabel()
-        label.backgroundColor = .white
+        label.backgroundColor = .cyan
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Add Age"

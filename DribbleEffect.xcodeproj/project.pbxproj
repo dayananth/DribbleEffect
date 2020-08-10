@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0C2E6D3124DEED35004F3030 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2E6D3024DEED35004F3030 /* AppDelegate.swift */; };
-		0C2E6D3524DEED35004F3030 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2E6D3424DEED35004F3030 /* ViewController.swift */; };
+		0C2E6D3524DEED35004F3030 /* TestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2E6D3424DEED35004F3030 /* TestController.swift */; };
 		0C2E6D3824DEED35004F3030 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C2E6D3624DEED35004F3030 /* Main.storyboard */; };
 		0C2E6D3A24DEED38004F3030 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C2E6D3924DEED38004F3030 /* Assets.xcassets */; };
 		0C2E6D3D24DEED38004F3030 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C2E6D3B24DEED38004F3030 /* LaunchScreen.storyboard */; };
@@ -20,6 +20,7 @@
 		0C2E6D6124E02DD8004F3030 /* SegmentBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2E6D6024E02DD8004F3030 /* SegmentBundle.swift */; };
 		0C2E6D6324E03264004F3030 /* SegmentContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2E6D6224E03264004F3030 /* SegmentContainerView.swift */; };
 		0C2E6D6524E0447C004F3030 /* AgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2E6D6424E0447C004F3030 /* AgeView.swift */; };
+		0C2E6ECF24E1211D004F3030 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2E6ECE24E1211D004F3030 /* AddressView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,7 +36,7 @@
 /* Begin PBXFileReference section */
 		0C2E6D2D24DEED35004F3030 /* DribbleEffect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DribbleEffect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C2E6D3024DEED35004F3030 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0C2E6D3424DEED35004F3030 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0C2E6D3424DEED35004F3030 /* TestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestController.swift; sourceTree = "<group>"; };
 		0C2E6D3724DEED35004F3030 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0C2E6D3924DEED38004F3030 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0C2E6D3C24DEED38004F3030 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -50,6 +51,7 @@
 		0C2E6D6024E02DD8004F3030 /* SegmentBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentBundle.swift; sourceTree = "<group>"; };
 		0C2E6D6224E03264004F3030 /* SegmentContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentContainerView.swift; sourceTree = "<group>"; };
 		0C2E6D6424E0447C004F3030 /* AgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeView.swift; sourceTree = "<group>"; };
+		0C2E6ECE24E1211D004F3030 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,19 +93,14 @@
 		0C2E6D2F24DEED35004F3030 /* DribbleEffect */ = {
 			isa = PBXGroup;
 			children = (
+				0C2E6ED124E12EDF004F3030 /* CoreComponents */,
+				0C2E6ED024E12EC9004F3030 /* TestViews */,
 				0C2E6D3024DEED35004F3030 /* AppDelegate.swift */,
-				0C2E6D3424DEED35004F3030 /* ViewController.swift */,
+				0C2E6D3424DEED35004F3030 /* TestController.swift */,
 				0C2E6D3624DEED35004F3030 /* Main.storyboard */,
 				0C2E6D3924DEED38004F3030 /* Assets.xcassets */,
 				0C2E6D3B24DEED38004F3030 /* LaunchScreen.storyboard */,
 				0C2E6D3E24DEED38004F3030 /* Info.plist */,
-				0C2E6D5224DF076B004F3030 /* StackViewInstance.swift */,
-				0C2E6D5424DFF19F004F3030 /* StackViewInstance1.swift */,
-				0C2E6D5824DFFFE7004F3030 /* Segment.swift */,
-				0C2E6D5C24E00746004F3030 /* NameView.swift */,
-				0C2E6D6024E02DD8004F3030 /* SegmentBundle.swift */,
-				0C2E6D6224E03264004F3030 /* SegmentContainerView.swift */,
-				0C2E6D6424E0447C004F3030 /* AgeView.swift */,
 			);
 			path = DribbleEffect;
 			sourceTree = "<group>";
@@ -115,6 +112,28 @@
 				0C2E6D4924DEED38004F3030 /* Info.plist */,
 			);
 			path = DribbleEffectTests;
+			sourceTree = "<group>";
+		};
+		0C2E6ED024E12EC9004F3030 /* TestViews */ = {
+			isa = PBXGroup;
+			children = (
+				0C2E6D5224DF076B004F3030 /* StackViewInstance.swift */,
+				0C2E6D5424DFF19F004F3030 /* StackViewInstance1.swift */,
+				0C2E6D5C24E00746004F3030 /* NameView.swift */,
+				0C2E6D6424E0447C004F3030 /* AgeView.swift */,
+				0C2E6ECE24E1211D004F3030 /* AddressView.swift */,
+			);
+			path = TestViews;
+			sourceTree = "<group>";
+		};
+		0C2E6ED124E12EDF004F3030 /* CoreComponents */ = {
+			isa = PBXGroup;
+			children = (
+				0C2E6D5824DFFFE7004F3030 /* Segment.swift */,
+				0C2E6D6024E02DD8004F3030 /* SegmentBundle.swift */,
+				0C2E6D6224E03264004F3030 /* SegmentContainerView.swift */,
+			);
+			path = CoreComponents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,7 +237,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C2E6D3524DEED35004F3030 /* ViewController.swift in Sources */,
+				0C2E6D3524DEED35004F3030 /* TestController.swift in Sources */,
 				0C2E6D5324DF076B004F3030 /* StackViewInstance.swift in Sources */,
 				0C2E6D5D24E00746004F3030 /* NameView.swift in Sources */,
 				0C2E6D6124E02DD8004F3030 /* SegmentBundle.swift in Sources */,
@@ -227,6 +246,7 @@
 				0C2E6D3124DEED35004F3030 /* AppDelegate.swift in Sources */,
 				0C2E6D6324E03264004F3030 /* SegmentContainerView.swift in Sources */,
 				0C2E6D5924DFFFE7004F3030 /* Segment.swift in Sources */,
+				0C2E6ECF24E1211D004F3030 /* AddressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
